@@ -40,10 +40,10 @@ class TJPUSpider:
         #request = urllib2.Request(checkcode_url, headers=self.headers)
         #picture = self.opener.open(request).read()
         # 将验证码写入本地（默认与源文件在同一文件夹下）,用urlretrieve方法
-        urllib.request.urlretrieve(checkcode_url,"check_code.jpg")
+        urllib.request.urlretrieve(checkcode_url, "check_code.jpg")
         #local = open("checkcode.jpg", "wb")
-        #local.write(picture)
-        #local.close()
+        # local.write(picture)
+        # local.close()
         # 手工输入验证码
         txt_check = raw_input(str("请输入验证码:"))
         return txt_check
@@ -92,7 +92,7 @@ class TJPUSpider:
 
             print "课程名：" + td_tag_list[2].get_text().strip() + "-----" + "学分:" + str(td_tag_list[4].get_text().strip()) + "-----" + "成绩:" + str(td_tag_list[6].get_text().strip())
 
-            if "CET" in str(td_tag_list[2].get_text().strip()) :
+            if "CET" in str(td_tag_list[2].get_text().strip()):
                 print "四六级成绩不算做学分绩内！"
             elif str(td_tag_list[6].get_text().strip()) == "通过":
                 print "通过的成绩算作100.0分！"
