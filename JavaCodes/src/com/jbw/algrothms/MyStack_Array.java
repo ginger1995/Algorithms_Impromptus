@@ -1,13 +1,15 @@
 package com.jbw.algrothms;
 
+import java.util.Iterator;
+
 import edu.princeton.cs.algs4.StdIn;
 
-public class MyStack<Item> {// using generic
+public class MyStack_Array<Item> implements Iterable<Item> {//The Stack data structure implemented by an Array.
 
 	private Item[] a;
 	private int N;
 
-	public MyStack(int cap) {
+	public MyStack_Array(int cap) {
 		a = (Item[]) new Object[cap];
 	}
 
@@ -43,17 +45,51 @@ public class MyStack<Item> {// using generic
 		System.out.println("The max size of stack now is adjusted to: " + a.length);
 	}
 
+	public class ReverseArrayIterator implements Iterator<Item> {
+
+		private int i = N;
+
+		@Override
+		public boolean hasNext() {
+			return i > 0;
+		}
+
+		@Override
+		public Item next() {
+			return a[--i];
+		}
+
+		@Override
+		public void remove() {
+		}
+
+	}
+
+	@Override
+	public Iterator<Item> iterator() {
+		return new ReverseArrayIterator();
+	}
+
+	private void print_all_left() {
+		for (Item item : a) {
+			if (item != null) {
+				System.out.println(item);
+			}
+		}
+	}
+
 	// main function
 	public static void main(String[] args) {
-		MyStack<String> s = new MyStack<String>(10);
+		MyStack_Array<String> s = new MyStack_Array<String>(1);
 		while (true) {
 			String item = StdIn.readString();
 			if ((!item.equals("-")) && (!item.equals("exit"))) {
 				System.out.println(s.push(item) + " is pushed in!");
 			} else if (item.equals("exit")) {
-				//((Object[]) (s.a)).length is very important!
+				// ((Object[]) (s.a)).length is very important!
 				System.out.println("The max size of stack now is: " + ((Object[]) (s.a)).length);
-				System.out.println("(" + s.size() + " item(s) left on stack,goodbye!)");
+				System.out.println("(Here the " + s.size() + " item(s) still left on stack!)");
+				s.print_all_left();
 				return;
 			} else if (!s.isEmpty()) {
 				System.out.println(s.pop() + " is popped out!");
